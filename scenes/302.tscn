@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://bro3ea0qob64m"]
+
+[ext_resource type="PackedScene" uid="uid://xgowc2v8tn6e" path="res://assets/unity_prefabs/302_finished.fbx" id="1_g1p41"]
+[ext_resource type="Script" uid="uid://bqb3cy0ekk685" path="res://addons/godot-xr-tools/objects/climbable.gd" id="2_b5i6q"]
+[ext_resource type="Script" uid="uid://bfrlpbsqg5lqr" path="res://addons/godot-xr-tools/objects/pickable.gd" id="2_xl45c"]
+
+[node name="302_finished" unique_id=1177354666 instance=ExtResource("1_g1p41")]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
+
+[node name="StaticBody3D" parent="302" parent_id_path=PackedInt32Array(1866535965) index="0" unique_id=1815112649]
+collision_layer = 13
+script = ExtResource("2_b5i6q")
+
+[node name="keyboard" parent="." index="2" unique_id=1055763094]
+script = ExtResource("2_xl45c")

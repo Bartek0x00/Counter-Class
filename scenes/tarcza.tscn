@@ -1,0 +1,43 @@
+[gd_scene format=3 uid="uid://c28st773ll2rk"]
+
+[ext_resource type="Script" uid="uid://bqvs7r3abq16e" path="res://scripts/tarcza.gd" id="1_vxg62"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_bsk1r"]
+height = 0.05
+radius = 0.25
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_slsi8"]
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_bsk1r"]
+material = SubResource("StandardMaterial3D_slsi8")
+top_radius = 0.25
+bottom_radius = 0.25
+height = 0.001
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_s8cw8"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_slsi8"]
+material = SubResource("StandardMaterial3D_s8cw8")
+top_radius = 0.125
+bottom_radius = 0.125
+height = 0.001
+
+[node name="Tarcza" type="StaticBody3D" unique_id=701362911]
+script = ExtResource("1_vxg62")
+
+[node name="Area3D" type="Area3D" parent="." unique_id=1527294939]
+collision_mask = 4
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=1619641044]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.02689305, 0)
+shape = SubResource("CylinderShape3D_bsk1r")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=133481619]
+mesh = SubResource("CylinderMesh_bsk1r")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="MeshInstance3D" unique_id=2099135004]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0004478637, 0)
+mesh = SubResource("CylinderMesh_slsi8")
+
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]

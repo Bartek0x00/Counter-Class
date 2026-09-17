@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://brafa2ljt0ubg"]
+
+[ext_resource type="PackedScene" uid="uid://bro3ea0qob64m" path="res://scenes/302.tscn" id="1_s76ks"]
+[ext_resource type="PackedScene" uid="uid://beyp7dhs4kagj" path="res://scenes/player.tscn" id="2_tvfge"]
+[ext_resource type="PackedScene" uid="uid://clc5dre31iskm" path="res://addons/godot-xr-tools/xr/start_xr.tscn" id="3_lu517"]
+[ext_resource type="PackedScene" uid="uid://dil5iymobevve" path="res://scenes/ball.tscn" id="4_4hi8r"]
+[ext_resource type="PackedScene" uid="uid://c7fdmrhhdf0w7" path="res://assets/kosz.glb" id="5_6pil0"]
+[ext_resource type="PackedScene" uid="uid://c28st773ll2rk" path="res://scenes/tarcza.tscn" id="6_ws7gb"]
+
+[node name="Mokotuff" type="Node3D" unique_id=1270401138]
+
+[node name="302_finished" parent="." unique_id=1177354666 instance=ExtResource("1_s76ks")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -4.7683716e-06, 4.2915344e-06, 3.33786e-06)
+
+[node name="player" parent="." unique_id=2054490815 instance=ExtResource("2_tvfge")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -4.065733, -1.1667473, -1.9243774)
+
+[node name="StartXR" parent="." unique_id=907921648 instance=ExtResource("3_lu517")]
+
+[node name="Ball" parent="." unique_id=1542645936 instance=ExtResource("4_4hi8r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.7248178, -0.18415523, -2.6094692)
+
+[node name="kosz" parent="." unique_id=869315525 instance=ExtResource("5_6pil0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.653961, 0, -2.5684762)
+
+[node name="Tarcza" parent="." unique_id=701362911 instance=ExtResource("6_ws7gb")]
+transform = Transform3D(-0.08281895, 0.9965646, 0, -0.9965646, -0.08281895, 0, 0, 0, 1, -7.683077, 0, -1.899796)

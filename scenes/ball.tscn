@@ -1,0 +1,33 @@
+[gd_scene format=3 uid="uid://dil5iymobevve"]
+
+[ext_resource type="Script" uid="uid://bfrlpbsqg5lqr" path="res://addons/godot-xr-tools/objects/pickable.gd" id="1_x8fbi"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_cbx31"]
+bounce = 0.9
+absorbent = true
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_bsk1r"]
+radius = 0.062
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_s8cw8"]
+albedo_color = Color(1, 0.50600004, 0.22000003, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_slsi8"]
+material = SubResource("StandardMaterial3D_s8cw8")
+radius = 0.062
+height = 0.126
+
+[node name="Ball" type="RigidBody3D" unique_id=154144308]
+collision_layer = 65540
+collision_mask = 7
+mass = 0.8
+physics_material_override = SubResource("PhysicsMaterial_cbx31")
+script = ExtResource("1_x8fbi")
+metadata/_custom_type_script = "uid://bfrlpbsqg5lqr"
+metadata/_edit_group_ = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=825723815]
+shape = SubResource("SphereShape3D_bsk1r")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1514296291]
+mesh = SubResource("SphereMesh_slsi8")

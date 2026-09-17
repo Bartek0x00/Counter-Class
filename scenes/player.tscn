@@ -1,0 +1,61 @@
+[gd_scene format=3 uid="uid://beyp7dhs4kagj"]
+
+[ext_resource type="PackedScene" uid="uid://bpdj5njb8nhot" path="res://addons/godot-xr-tools/hands/scenes/highpoly/left_fullglove_hand.tscn" id="1_onrkg"]
+[ext_resource type="PackedScene" uid="uid://bl2nuu3qhlb5k" path="res://addons/godot-xr-tools/functions/movement_direct.tscn" id="2_hqtel"]
+[ext_resource type="PackedScene" uid="uid://d1tl07geqm5xq" path="res://addons/godot-xr-tools/hands/scenes/highpoly/right_fullglove_hand.tscn" id="2_i3pqv"]
+[ext_resource type="PackedScene" uid="uid://b4ysuy43poobf" path="res://addons/godot-xr-tools/functions/function_pickup.tscn" id="4_1jxqw"]
+[ext_resource type="PackedScene" uid="uid://diyu06cw06syv" path="res://addons/godot-xr-tools/player/player_body.tscn" id="4_2hs0m"]
+[ext_resource type="PackedScene" uid="uid://bxm1ply47vaan" path="res://addons/godot-xr-tools/functions/movement_climb.tscn" id="5_1jxqw"]
+[ext_resource type="PackedScene" uid="uid://b6bk2pj8vbj28" path="res://addons/godot-xr-tools/functions/movement_turn.tscn" id="5_sweqy"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_32kw4"]
+
+[sub_resource type="Sky" id="Sky_kjhen"]
+sky_material = SubResource("ProceduralSkyMaterial_32kw4")
+
+[sub_resource type="Environment" id="Environment_yfktj"]
+background_mode = 2
+sky = SubResource("Sky_kjhen")
+sdfgi_enabled = true
+sdfgi_use_occlusion = true
+glow_enabled = true
+
+[node name="player" type="Node3D" unique_id=2054490815]
+
+[node name="XROrigin3D" type="XROrigin3D" parent="." unique_id=1446618854]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.38718206, 0)
+
+[node name="MovementClimb" parent="XROrigin3D" unique_id=1676345443 instance=ExtResource("5_1jxqw")]
+
+[node name="PlayerBody" parent="XROrigin3D" unique_id=1062781565 instance=ExtResource("4_2hs0m")]
+player_radius = 0.1
+player_height_min = 0.3
+player_height_max = 0.9
+player_height_rate = 1.0
+eye_forward_offset = 0.219
+head_behavior_mode = 2
+
+[node name="XRCamera3D" type="XRCamera3D" parent="XROrigin3D" unique_id=57910013]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5113534, 0)
+environment = SubResource("Environment_yfktj")
+
+[node name="LeftHand" type="XRController3D" parent="XROrigin3D" unique_id=208106864]
+tracker = &"left_hand"
+
+[node name="LeftHand" parent="XROrigin3D/LeftHand" unique_id=545308147 instance=ExtResource("1_onrkg")]
+
+[node name="MovementDirect" parent="XROrigin3D/LeftHand" unique_id=338187135 instance=ExtResource("2_hqtel")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.178023, 0)
+strafe = true
+
+[node name="FunctionPickup" parent="XROrigin3D/LeftHand" unique_id=1495626129 instance=ExtResource("4_1jxqw")]
+
+[node name="RightHand" type="XRController3D" parent="XROrigin3D" unique_id=938645716]
+tracker = &"right_hand"
+
+[node name="MovementTurn" parent="XROrigin3D/RightHand" unique_id=1488906667 instance=ExtResource("5_sweqy")]
+turn_mode = 1
+
+[node name="RightHand" parent="XROrigin3D/RightHand" unique_id=1754407580 instance=ExtResource("2_i3pqv")]
+
+[node name="FunctionPickup" parent="XROrigin3D/RightHand" unique_id=88950133 instance=ExtResource("4_1jxqw")]
