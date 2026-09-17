@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://dxtrljxfgq52w"
 path.s3tc="res://.godot/imported/vecteezy_wood-texture-background-wood-planks-or-wood-wall_3498698 1.jpg-e075a44916ffcd3a950df42e718d6a46.s3tc.ctex"
+path.etc2="res://.godot/imported/vecteezy_wood-texture-background-wood-planks-or-wood-wall_3498698 1.jpg-e075a44916ffcd3a950df42e718d6a46.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://assets/unity_prefabs/vecteezy_wood-texture-background-wood-planks-or-wood-wall_3498698 1.jpg"
-dest_files=["res://.godot/imported/vecteezy_wood-texture-background-wood-planks-or-wood-wall_3498698 1.jpg-e075a44916ffcd3a950df42e718d6a46.s3tc.ctex"]
+dest_files=["res://.godot/imported/vecteezy_wood-texture-background-wood-planks-or-wood-wall_3498698 1.jpg-e075a44916ffcd3a950df42e718d6a46.s3tc.ctex", "res://.godot/imported/vecteezy_wood-texture-background-wood-planks-or-wood-wall_3498698 1.jpg-e075a44916ffcd3a950df42e718d6a46.etc2.ctex"]
 
 [params]
 

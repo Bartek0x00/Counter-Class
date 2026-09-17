@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://clc5dre31iskm" path="res://addons/godot-xr-tools/xr/start_xr.tscn" id="3_lu517"]
 [ext_resource type="PackedScene" uid="uid://dil5iymobevve" path="res://scenes/ball.tscn" id="4_4hi8r"]
 [ext_resource type="PackedScene" uid="uid://c7fdmrhhdf0w7" path="res://assets/kosz.glb" id="5_6pil0"]
-[ext_resource type="PackedScene" uid="uid://c28st773ll2rk" path="res://scenes/tarcza.tscn" id="6_ws7gb"]
+[ext_resource type="PackedScene" uid="uid://c28st773ll2rk" path="res://scenes/tarcza.tscn" id="6_s76ks"]
 
 [node name="Mokotuff" type="Node3D" unique_id=1270401138]
 
@@ -23,5 +23,13 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.7248178, -0.18415523, -2.6
 [node name="kosz" parent="." unique_id=869315525 instance=ExtResource("5_6pil0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.653961, 0, -2.5684762)
 
-[node name="Tarcza" parent="." unique_id=701362911 instance=ExtResource("6_ws7gb")]
-transform = Transform3D(-0.08281895, 0.9965646, 0, -0.9965646, -0.08281895, 0, 0, 0, 1, -7.683077, 0, -1.899796)
+[node name="Licznik" type="Label3D" parent="." unique_id=1321540624]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -7.6770673, 0.35889477, -1.8789822)
+text = "Licznik: 0"
+
+[node name="Tarcza" parent="." unique_id=701362911 instance=ExtResource("6_s76ks")]
+transform = Transform3D(-4.3711385e-08, 0.99999994, 0, -0.99999994, -4.3711385e-08, 0, 0, 0, 1, -7.6634555, 0.029644117, -1.8888001)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1092023855]
+transform = Transform3D(-0.737562, -0.1431708, 0.65992767, 0.13776644, 0.9248093, 0.3546101, -0.66107696, 0.3524628, -0.66238004, -3.4729252, 0, -6.272527)
+shadow_enabled = true

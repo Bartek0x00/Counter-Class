@@ -19,6 +19,8 @@ sky = SubResource("Sky_kjhen")
 sdfgi_enabled = true
 sdfgi_use_occlusion = true
 glow_enabled = true
+glow_intensity = 4.1
+glow_strength = 1.33
 
 [node name="player" type="Node3D" unique_id=2054490815]
 

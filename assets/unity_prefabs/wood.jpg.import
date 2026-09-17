@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://8riv4nlkfcsu"
 path.s3tc="res://.godot/imported/wood.jpg-cc4a776861bb7a62c335a8ad49755f2e.s3tc.ctex"
+path.etc2="res://.godot/imported/wood.jpg-cc4a776861bb7a62c335a8ad49755f2e.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://assets/unity_prefabs/wood.jpg"
-dest_files=["res://.godot/imported/wood.jpg-cc4a776861bb7a62c335a8ad49755f2e.s3tc.ctex"]
+dest_files=["res://.godot/imported/wood.jpg-cc4a776861bb7a62c335a8ad49755f2e.s3tc.ctex", "res://.godot/imported/wood.jpg-cc4a776861bb7a62c335a8ad49755f2e.etc2.ctex"]
 
 [params]
 
