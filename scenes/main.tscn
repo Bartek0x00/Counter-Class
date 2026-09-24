@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://c2gi7ufc8n5f7"]
+
+[ext_resource type="PackedScene" uid="uid://dbwo5c72xshi6" path="res://scenes/spawn.tscn" id="1_o5qli"]
+[ext_resource type="Script" uid="uid://b8ec5quxbm8n5" path="res://scripts/main.gd" id="1_sugp2"]
+[ext_resource type="PackedScene" uid="uid://beyp7dhs4kagj" path="res://scenes/player.tscn" id="3_jyhfs"]
+[ext_resource type="PackedScene" uid="uid://clc5dre31iskm" path="res://addons/godot-xr-tools/xr/start_xr.tscn" id="4_jyhfs"]
+
+[node name="Main" type="Node3D" unique_id=247135338]
+script = ExtResource("1_sugp2")
+
+[node name="Spawn" parent="." unique_id=1556354741 instance=ExtResource("1_o5qli")]
+
+[node name="player" parent="." unique_id=2054490815 instance=ExtResource("3_jyhfs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0858032, 3.7080207)
+
+[node name="StartXR" parent="." unique_id=942268766 instance=ExtResource("4_jyhfs")]

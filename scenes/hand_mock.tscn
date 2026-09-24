@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://di1354w72gg6b"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_bsk1r"]
+size = Vector3(0.1, 0.2, 0.2)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_slsi8"]
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_bsk1r"]
+material = SubResource("StandardMaterial3D_slsi8")
+size = Vector3(0.1, 0.2, 0.2)
+
+[node name="HandMock" type="Node3D" unique_id=1402987060]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=724005463]
+shape = SubResource("BoxShape3D_bsk1r")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=886276518]
+mesh = SubResource("BoxMesh_bsk1r")

@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://dboj5jcpstrw2"]
+
+[ext_resource type="PackedScene" uid="uid://n6lqutj1xygp" path="res://assets/School302.glb" id="1_bss7p"]
+[ext_resource type="Script" uid="uid://cjwf1mr2vyiso" path="res://scripts/yellow_table.gd" id="2_pkfnr"]
+
+[node name="School302" unique_id=12339596 instance=ExtResource("1_bss7p")]
+
+[node name="yellow_table_017" parent="." index="137" unique_id=137131774]
+script = ExtResource("2_pkfnr")

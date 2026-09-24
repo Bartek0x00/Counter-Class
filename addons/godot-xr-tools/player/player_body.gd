@@ -101,7 +101,6 @@ const NEAR_GROUND_DISTANCE := 1.0
 ## Option for specifying when ground control is allowed
 @export var ground_control : GroundControl = GroundControl.ON_GROUND
 
-
 ## Player 3D Velocity - modified by [XRToolsMovementProvider] nodes
 #var velocity : Vector3 = Vector3.ZERO
 

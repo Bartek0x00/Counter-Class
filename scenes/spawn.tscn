@@ -1,0 +1,81 @@
+[gd_scene format=3 uid="uid://dbwo5c72xshi6"]
+
+[ext_resource type="Script" uid="uid://bkrwbtr4ly7jk" path="res://scripts/spawn.gd" id="1_48w1d"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_bsk1r"]
+size = Vector3(30, 0.1, 30)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_slsi8"]
+albedo_color = Color(1, 0.7988334, 0.29000002, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_bsk1r"]
+material = SubResource("StandardMaterial3D_slsi8")
+size = Vector3(30, 0.1, 30)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_slsi8"]
+size = Vector3(2, 2, 2)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_s8cw8"]
+resource_local_to_scene = true
+transparency = 1
+blend_mode = 4
+albedo_color = Color(1.2237577, 0.39953473, 0.39953473, 0.75686276)
+
+[sub_resource type="BoxMesh" id="BoxMesh_slsi8"]
+material = SubResource("StandardMaterial3D_s8cw8")
+size = Vector3(2, 2, 2)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_q0eb6"]
+resource_local_to_scene = true
+transparency = 1
+blend_mode = 4
+albedo_color = Color(0, 1.2237577, 0.2944867, 0.75686276)
+
+[sub_resource type="BoxMesh" id="BoxMesh_yubdn"]
+material = SubResource("StandardMaterial3D_q0eb6")
+size = Vector3(2, 2, 2)
+
+[node name="Spawn" type="StaticBody3D" unique_id=1556354741]
+script = ExtResource("1_48w1d")
+metadata/_edit_group_ = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1962477871]
+shape = SubResource("BoxShape3D_bsk1r")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=2017788524]
+mesh = SubResource("BoxMesh_bsk1r")
+
+[node name="Area_Host" type="Area3D" parent="." unique_id=1826293286]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 1, 0)
+collision_mask = 2752512
+metadata/_edit_group_ = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area_Host" unique_id=503598400]
+shape = SubResource("BoxShape3D_slsi8")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Area_Host" unique_id=1882321526]
+mesh = SubResource("BoxMesh_slsi8")
+
+[node name="Label3D" type="Label3D" parent="Area_Host" unique_id=711918113]
+billboard = 2
+text = "HOST"
+font_size = 64
+
+[node name="Area_Join" type="Area3D" parent="." unique_id=23428002]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 1, 0)
+collision_mask = 655360
+metadata/_edit_group_ = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area_Join" unique_id=1865978754]
+shape = SubResource("BoxShape3D_slsi8")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Area_Join" unique_id=1789324148]
+mesh = SubResource("BoxMesh_yubdn")
+
+[node name="Label3D" type="Label3D" parent="Area_Join" unique_id=8989982]
+billboard = 2
+text = "JOIN"
+font_size = 64
+
+[connection signal="body_entered" from="Area_Host" to="." method="_on_area_host_body_entered"]
+[connection signal="body_entered" from="Area_Join" to="." method="_on_area_join_body_entered"]
