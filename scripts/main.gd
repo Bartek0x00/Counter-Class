@@ -72,8 +72,8 @@ func server_sync_player(peer_id: int, state: Dictionary) -> void:
 	for id in players.keys():
 		players[id].rpc("client_sync_player", peer_id, state)
 
-#@rpc("any_peer", "call_local", "unreliable_ordered")
-#func server_sync_obj(peer_id: int, state: Dictionary) -> void:
-#	if not players.has(peer_id):
-#		return
-#	players[peer_id].rpc("client_sync_obj", state)
+@rpc("any_peer", "call_local", "unreliable_ordered")
+func server_sync_obj(peer_id: int, state: Dictionary) -> void:
+	if not players.has(peer_id):
+		return
+	players[peer_id].rpc("client_sync_obj", state)

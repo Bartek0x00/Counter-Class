@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://dhaqth6q5yw4n" path="res://addons/godot-xr-tools/hands/model/hand_l.gltf" id="2"]
 [ext_resource type="Script" uid="uid://cnwtovj4mqc45" path="res://addons/godot-xr-tools/hands/hand.gd" id="3"]
 [ext_resource type="Resource" uid="uid://dertgu7k8alls" path="res://addons/godot-xr-tools/hands/poses/pose_default_left.tres" id="3_x4lr3"]
-[ext_resource type="Material" uid="uid://cdb40djkihelq" path="res://addons/godot-xr-tools/hands/materials/cleaning_glove.tres" id="4"]
+[ext_resource type="Material" uid="uid://2pmhwn0owbx7" path="res://assets/new_standard_material_3d.tres" id="5_vdyxg"]
 [ext_resource type="AnimationNodeBlendTree" uid="uid://dl8yf7ipqotd1" path="res://addons/godot-xr-tools/hands/animations/left/hand_blend_tree.tres" id="6"]
 [ext_resource type="PackedScene" uid="uid://yrg5yt0yvc1q" path="res://addons/godot-xr-tools/hands/scenes/collision/collision_hand.tscn" id="7_vdyxg"]
 
@@ -69,7 +69,7 @@ bones/22/rotation = Quaternion(0.058578636, 0.021648303, -0.26990518, 0.9608596)
 bones/23/rotation = Quaternion(0.006871769, -0.0035727466, -0.21195254, 0.97724926)
 
 [node name="mesh_Hand_L" parent="Hand_L/Armature/Skeleton3D" index="0" unique_id=1989604354]
-surface_material_override/0 = ExtResource("4")
+surface_material_override/0 = ExtResource("5_vdyxg")
 
 [node name="AnimationPlayer" parent="Hand_L" unique_id=751645406 instance=ExtResource("1")]
 

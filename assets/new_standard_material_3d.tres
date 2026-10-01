@@ -1,0 +1,6 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://2pmhwn0owbx7"]
+
+[resource]
+resource_name = "Skin"
+cull_mode = 2
+albedo_color = Color(0.7568628, 0.41960794, 0.41176477, 1)

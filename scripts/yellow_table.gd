@@ -11,4 +11,4 @@ func _physics_process(delta: float) -> void:
 			"p": global_position,
 			"q": quaternion
 		}
-		#get_node("/root/Main").rpc_id(1, "server_sync_obj", get_node("/root/Main").multiplayer.get_unique_id(), snapshot)
+		get_node("/root/Main").rpc_id(1, "server_sync_obj", get_node("/root/Main").multiplayer.get_unique_id(), snapshot)
