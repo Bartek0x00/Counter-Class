@@ -33,6 +33,10 @@ project/assembly_name="vrTest"
 
 enabled=PackedStringArray("res://addons/godot-xr-tools/plugin.cfg")
 
+[global_group]
+
+spawn_point=""
+
 [layer_names]
 
 3d_physics/layer_1="Static World"

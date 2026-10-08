@@ -1,9 +1,15 @@
 extends RigidBody3D
 
 var _sync_timer: float = 0.0
-var _sync_interval: float = 0.020
+var _sync_interval: float = 0.500
+
+var target_position: Vector3
+var target_quaternion: Quaternion
 
 func _physics_process(delta: float) -> void:
+	global_position.lerp(target_position, 0.5 * delta)
+	global_basis = Basis(global_basis.get_rotation_quaternion().slerp(target_quaternion, 0.5 * delta))
+	
 	_sync_timer += delta
 	if _sync_timer >= _sync_interval:
 		_sync_timer = 0.0

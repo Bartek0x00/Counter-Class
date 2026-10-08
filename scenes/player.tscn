@@ -270,19 +270,21 @@ glow_strength = 1.33
 
 [node name="Player" type="XROrigin3D" unique_id=1492187489]
 script = ExtResource("1_smehm")
+metadata/_edit_group_ = true
 
 [node name="MovementClimb" parent="." unique_id=1489789315 instance=ExtResource("5_1jxqw")]
 
 [node name="PlayerBody" parent="." unique_id=810966615 instance=ExtResource("4_2hs0m")]
 player_radius = 0.1
-player_height_min = 1.0
-player_height_max = 1.8399999999999999
-player_height_rate = 1.0
+player_height_max = 1.8
 eye_forward_offset = 0.219
+max_head_distance = 0.0
 head_behavior_mode = 2
 
+[node name="Marker3D" type="Marker3D" parent="PlayerBody" unique_id=540206281]
+
 [node name="Skeleton3D" type="Skeleton3D" parent="PlayerBody" unique_id=926957319]
-transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0.11564398)
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
 bones/0/name = "IK-target.L"
 bones/0/parent = -1
 bones/0/rest = Transform3D(1, 0, 0, 0, 0, 1, 0, -1, 0, 0.09241789, 0.056805126, -0.0151505545)
@@ -632,11 +634,36 @@ settings/0/end_bone = 21
 settings/0/use_virtual_end = false
 settings/0/extend_end_bone = false
 
+[node name="CopyTransformModifier3D" type="CopyTransformModifier3D" parent="PlayerBody/Skeleton3D" unique_id=426052864]
+setting_count = 1
+settings/0/amount = 1.0
+settings/0/apply_bone_name = "palm.R"
+settings/0/apply_bone = 26
+settings/0/reference_type = 1
+settings/0/reference_node = NodePath("../../../RightHand/RightHand/Marker3D")
+settings/0/copy = 6
+settings/0/axes = 7
+settings/0/invert = 0
+settings/0/additive = false
+
+[node name="CopyTransformModifier3D2" type="CopyTransformModifier3D" parent="PlayerBody/Skeleton3D" unique_id=1259301256]
+setting_count = 1
+settings/0/amount = 1.0
+settings/0/apply_bone_name = "head"
+settings/0/apply_bone = 16
+settings/0/reference_type = 1
+settings/0/reference_node = NodePath("../../../XRCamera3D/Marker3D")
+settings/0/copy = 3
+settings/0/axes = 7
+settings/0/invert = 0
+settings/0/additive = false
+
 [node name="XRCamera3D" type="XRCamera3D" parent="." unique_id=409588794]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6935427, 0)
 environment = SubResource("Environment_yfktj")
 
 [node name="Marker3D" type="Marker3D" parent="XRCamera3D" unique_id=451027464]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3522591, 0.4115461)
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, -0.033602238, 0.104557514)
 
 [node name="LeftHand" type="XRController3D" parent="." unique_id=812487735]
 transform = Transform3D(1.0000001, 0, 0, 0, 1.0000001, 0, 0, 0, 0.9999999, 0, 0, 0)
@@ -666,7 +693,8 @@ turn_mode = 1
 [node name="RightHand" parent="RightHand" unique_id=816310675 instance=ExtResource("2_i3pqv")]
 
 [node name="Marker3D" type="Marker3D" parent="RightHand/RightHand" unique_id=1975760481]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.009748777, 0, 0.0696189)
+transform = Transform3D(-4.4703484e-08, 0, 1, -1, 1.1924881e-08, -4.4703484e-08, -1.1924881e-08, -1, -5.2125306e-16, 0, 0, 0.12840652)
+rotation_order = 0
 
 [node name="FunctionPickup" parent="RightHand" unique_id=2048063526 instance=ExtResource("4_1jxqw")]
 

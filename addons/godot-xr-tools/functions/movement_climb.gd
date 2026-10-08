@@ -176,7 +176,7 @@ func _set_climbing(active: bool, player_body: XRToolsPlayerBody) -> void:
 	# Handle state change
 	if is_active:
 		_averager.clear()
-		player_body.override_player_height(self, 0.0)
+		#player_body.override_player_height(self, 0.0)
 		emit_signal("player_climb_start")
 	else:
 		# Calculate the forward direction (based on camera-forward)
@@ -189,7 +189,7 @@ func _set_climbing(active: bool, player_body: XRToolsPlayerBody) -> void:
 		var velocity := _averager.velocity()
 		player_body.velocity = (velocity * fling_multiplier) + (dir_forward * forward_push)
 
-		player_body.override_player_height(self)
+		#player_body.override_player_height(self)
 		emit_signal("player_climb_end")
 
 

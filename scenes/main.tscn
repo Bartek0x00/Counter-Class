@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://dbwo5c72xshi6" path="res://scenes/spawn.tscn" id="1_o5qli"]
 [ext_resource type="Script" uid="uid://b8ec5quxbm8n5" path="res://scripts/main.gd" id="1_sugp2"]
-[ext_resource type="PackedScene" uid="uid://beyp7dhs4kagj" path="res://scenes/player.tscn" id="3_jyhfs"]
+[ext_resource type="PackedScene" uid="uid://bq7la67a2tqc5" path="res://scenes/player.tscn" id="3_jyhfs"]
 [ext_resource type="PackedScene" uid="uid://clc5dre31iskm" path="res://addons/godot-xr-tools/xr/start_xr.tscn" id="4_jyhfs"]
 
 [node name="Main" type="Node3D" unique_id=247135338]

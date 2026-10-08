@@ -1,9 +1,18 @@
 [gd_scene format=3 uid="uid://dboj5jcpstrw2"]
 
 [ext_resource type="PackedScene" uid="uid://n6lqutj1xygp" path="res://assets/School302.glb" id="1_bss7p"]
+[ext_resource type="Script" uid="uid://bqb3cy0ekk685" path="res://addons/godot-xr-tools/objects/climbable.gd" id="2_btewn"]
 [ext_resource type="Script" uid="uid://cjwf1mr2vyiso" path="res://scripts/yellow_table.gd" id="2_pkfnr"]
+[ext_resource type="PackedScene" uid="uid://dil5iymobevve" path="res://scenes/ball.tscn" id="4_iyx6v"]
 
 [node name="School302" unique_id=12339596 instance=ExtResource("1_bss7p")]
 
+[node name="StaticBody3D" parent="302" parent_id_path=PackedInt32Array(754741477) index="0" unique_id=1505743403]
+collision_layer = 13
+script = ExtResource("2_btewn")
+
 [node name="yellow_table_017" parent="." index="137" unique_id=137131774]
 script = ExtResource("2_pkfnr")
+
+[node name="Ball" parent="." index="139" unique_id=154144308 instance=ExtResource("4_iyx6v")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.328968, -0.32581198, -3.620357)
