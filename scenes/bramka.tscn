@@ -1,0 +1,35 @@
+[gd_scene format=3 uid="uid://cs1348atlaad"]
+
+[ext_resource type="Script" uid="uid://dh70sv3ntn70p" path="res://scripts/bramka.gd" id="1_sqsiq"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_slsi8"]
+transparency = 1
+albedo_color = Color(0.24000001, 1, 0.24000001, 0.34117648)
+
+[sub_resource type="BoxMesh" id="BoxMesh_bsk1r"]
+material = SubResource("StandardMaterial3D_slsi8")
+size = Vector3(3, 1.5, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_bsk1r"]
+size = Vector3(3, 1.5, 1)
+
+[node name="Bramka" type="Area3D" unique_id=983193591]
+collision_mask = 65541
+script = ExtResource("1_sqsiq")
+metadata/_edit_group_ = true
+
+[node name="Label3D" type="Label3D" parent="." unique_id=1336391489]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.1187313, -0.44959196)
+modulate = Color(1, 0, 0, 1)
+text = "0"
+font_size = 256
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=682539025]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
+mesh = SubResource("BoxMesh_bsk1r")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=861635037]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
+shape = SubResource("BoxShape3D_bsk1r")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

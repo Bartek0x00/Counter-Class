@@ -6,7 +6,7 @@
 bounce = 0.9
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_bsk1r"]
-radius = 0.062
+radius = 0.2
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_s8cw8"]
 albedo_color = Color(1, 0.50600004, 0.22000003, 1)
@@ -15,23 +15,15 @@ clearcoat_roughness = 0.0
 
 [sub_resource type="SphereMesh" id="SphereMesh_slsi8"]
 material = SubResource("StandardMaterial3D_s8cw8")
-radius = 0.062
-height = 0.126
+radius = 0.2
+height = 0.4
 
-[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_7s4qf"]
-properties/0/path = NodePath(".:position")
-properties/0/spawn = true
-properties/0/replication_mode = 1
-properties/1/path = NodePath(".:rotation")
-properties/1/spawn = true
-properties/1/replication_mode = 1
-
-[node name="Ball" type="RigidBody3D" unique_id=154144308]
-collision_layer = 65540
-collision_mask = 7
+[node name="Ball" type="RigidBody3D" unique_id=154144308 groups=["Ball"]]
+collision_layer = 4
+collision_mask = 655367
+mass = 0.75
 physics_material_override = SubResource("PhysicsMaterial_cbx31")
 script = ExtResource("1_x8fbi")
-picked_up_layer = 65540
 metadata/_custom_type_script = "uid://bfrlpbsqg5lqr"
 metadata/_edit_group_ = true
 
@@ -40,6 +32,3 @@ shape = SubResource("SphereShape3D_bsk1r")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1514296291]
 mesh = SubResource("SphereMesh_slsi8")
-
-[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=138437690]
-replication_config = SubResource("SceneReplicationConfig_7s4qf")

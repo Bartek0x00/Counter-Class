@@ -3,10 +3,10 @@ extends StaticBody3D
 const PORT: int = 8000
 const MAX_PLAYERS: int = 32
 
-var ip_addr: String = "192.168.0.249"
+var ip_addr: String = "192.168.0.101"
 var nickname: String = ""
 
-var S302_SCENE: PackedScene = preload("res://scenes/classroom_302.tscn")
+var S302_SCENE: PackedScene = preload("res://scenes/salac.tscn")
 
 func _ready() -> void:
 	#if OS.has_feature("server"):

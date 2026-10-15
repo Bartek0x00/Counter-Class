@@ -1,0 +1,30 @@
+[gd_scene format=3 uid="uid://yorihg60b62i"]
+
+[ext_resource type="Script" uid="uid://p800q2o8m54a" path="res://scripts/ball_mock.gd" id="1_bq4ov"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_22xoh"]
+radius = 0.2
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_s8cw8"]
+albedo_color = Color(1, 0.50600004, 0.22000003, 1)
+rim_tint = 0.3
+clearcoat_roughness = 0.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_slsi8"]
+material = SubResource("StandardMaterial3D_s8cw8")
+radius = 0.2
+height = 0.4
+
+[node name="Ball" type="Area3D" unique_id=1050591168]
+collision_layer = 65540
+collision_mask = 7
+script = ExtResource("1_bq4ov")
+metadata/_edit_group_ = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=825723815]
+shape = SubResource("SphereShape3D_22xoh")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1514296291]
+mesh = SubResource("SphereMesh_slsi8")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

@@ -36,6 +36,7 @@ enabled=PackedStringArray("res://addons/godot-xr-tools/plugin.cfg")
 [global_group]
 
 spawn_point=""
+Ball=""
 
 [layer_names]
 
@@ -44,6 +45,7 @@ spawn_point=""
 3d_physics/layer_3="Pickable Objects"
 3d_physics/layer_4="Wall Walking"
 3d_physics/layer_5="Grappling Target"
+3d_physics/layer_6="Ball"
 3d_physics/layer_17="Held Objects"
 3d_physics/layer_18="Player Hands"
 3d_physics/layer_19="Grab Handles"

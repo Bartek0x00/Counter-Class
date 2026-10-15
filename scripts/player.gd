@@ -6,8 +6,11 @@ var is_also_client: bool = true
 var _sync_timer: float = 0.0
 var _sync_interval: float = 0.020
 
-var left_hand
-var right_hand
+var _spawn_timer: float = 0.0
+var _spawn_interval: float = 0.200
+
+var left_hand: XRController3D
+var right_hand: XRController3D
 
 var MOCK_PLAYER: PackedScene = preload("res://scenes/player_mock.tscn")
 
@@ -22,6 +25,15 @@ func _ready() -> void:
 			c.queue_free()
 		var mock_player = MOCK_PLAYER.instantiate()
 		add_child(mock_player)
+
+func _process(delta: float) -> void:
+	if not is_local:
+		return
+	_spawn_timer += delta
+	if _spawn_timer >= _spawn_interval:
+		_spawn_timer = 0.0
+		if left_hand.is_button_pressed("ax_button"):
+			get_node("/root/Main").rpc_id(1, "server_spawn_obj", Main.ObjType.BALL)
 
 func _physics_process(delta: float) -> void:
 	if not is_local:
@@ -57,9 +69,3 @@ func client_sync_player(peer_id: int, state: Dictionary) -> void:
 	player_mock.get_node("MockRightHand").quaternion = state["rh_q"]
 	player_mock.get_node("CameraMock").global_position = state["c_p"]
 	player_mock.get_node("CameraMock").quaternion = state["c_q"]
-
-@rpc("authority", "call_local", "unreliable_ordered")
-func client_sync_obj(state: Dictionary) -> void:
-	var obj = get_node("/root/Main/School302/yellow_table_017")
-	obj.target_position = state["p"]
-	obj.target_quaternion = state["q"]
