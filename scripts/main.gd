@@ -19,6 +19,10 @@ const MOCK_OBJECTS: Array[PackedScene] = [
 	preload("res://scenes/mock/ball_mock.tscn")
 ]
 
+func _ready() -> void:
+	var _trash = OpenXRFbSpatialAnchorManager.new()
+	get_viewport().transparent_bg = true
+
 func init_server(port: int, max_players: int, is_also_client: bool) -> void:
 	var peer = ENetMultiplayerPeer.new()
 	var error = peer.create_server(port, max_players)

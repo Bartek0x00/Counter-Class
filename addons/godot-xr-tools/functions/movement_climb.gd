@@ -95,6 +95,7 @@ func _ready():
 	if Engine.is_editor_hint():
 		return
 
+	
 	# Connect pickup funcitons
 	if _left_pickup_node.connect("has_picked_up", _on_left_picked_up):
 		push_error("Unable to connect left picked up signal")

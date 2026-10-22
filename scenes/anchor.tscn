@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://bch5lk11tt1j6"]
+
+[ext_resource type="Script" uid="uid://cu56cxu7ebadd" path="res://scripts/anchor.gd" id="1_gdjek"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_s8cw8"]
+albedo_color = Color(1, 0.20999998, 0.20999998, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_slsi8"]
+material = SubResource("StandardMaterial3D_s8cw8")
+
+[node name="Anchor" type="Node3D" unique_id=1919366920]
+script = ExtResource("1_gdjek")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1392214558]
+mesh = SubResource("BoxMesh_slsi8")

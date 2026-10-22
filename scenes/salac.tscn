@@ -11,8 +11,9 @@ collision_layer = 13
 script = ExtResource("2_axo8c")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." index="1" unique_id=1483794161]
-transform = Transform3D(-0.28110936, -0.40237883, 0.87124556, -0.123556264, 0.9154733, 0.3829394, -0.9516887, 0, -0.30706453, 6.589531, 0, 0)
+transform = Transform3D(-0.28110936, -0.40237883, 0.87124556, -0.123556264, 0.9154733, 0.38293937, -0.9516887, 0, -0.30706453, 6.589531, 0.80556107, 0)
 shadow_enabled = true
+sky_mode = 1
 
 [node name="Bramka" parent="." index="2" unique_id=983193591 instance=ExtResource("2_rikql")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 14.5, 0, 0)

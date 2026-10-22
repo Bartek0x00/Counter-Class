@@ -2,12 +2,10 @@
 
 [ext_resource type="PackedScene" uid="uid://bpdj5njb8nhot" path="res://addons/godot-xr-tools/hands/scenes/highpoly/left_fullglove_hand.tscn" id="1_onrkg"]
 [ext_resource type="Script" uid="uid://dbd4bj2wf1nwn" path="res://scripts/player.gd" id="1_smehm"]
-[ext_resource type="PackedScene" uid="uid://bl2nuu3qhlb5k" path="res://addons/godot-xr-tools/functions/movement_direct.tscn" id="2_hqtel"]
 [ext_resource type="PackedScene" uid="uid://d1tl07geqm5xq" path="res://addons/godot-xr-tools/hands/scenes/highpoly/right_fullglove_hand.tscn" id="2_i3pqv"]
 [ext_resource type="PackedScene" uid="uid://b4ysuy43poobf" path="res://addons/godot-xr-tools/functions/function_pickup.tscn" id="4_1jxqw"]
 [ext_resource type="PackedScene" uid="uid://diyu06cw06syv" path="res://addons/godot-xr-tools/player/player_body.tscn" id="4_2hs0m"]
-[ext_resource type="PackedScene" uid="uid://bxm1ply47vaan" path="res://addons/godot-xr-tools/functions/movement_climb.tscn" id="5_1jxqw"]
-[ext_resource type="PackedScene" uid="uid://b6bk2pj8vbj28" path="res://addons/godot-xr-tools/functions/movement_turn.tscn" id="5_sweqy"]
+[ext_resource type="PackedScene" uid="uid://bch5lk11tt1j6" path="res://scenes/anchor.tscn" id="9_ur7pv"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_t22rd"]
 resource_name = "shirt"
@@ -265,26 +263,22 @@ bind/47/name = &"toe.R_leaf"
 bind/47/bone = -1
 bind/47/pose = Transform3D(1, 0, 0, 0, -1, 0, 0, 0, -1, 0.09241789, 0.01235322, 0.13807146)
 
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_32kw4"]
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_m3w18"]
 
-[sub_resource type="Sky" id="Sky_kjhen"]
-sky_material = SubResource("ProceduralSkyMaterial_32kw4")
+[sub_resource type="Sky" id="Sky_s8cw8"]
+sky_material = SubResource("ProceduralSkyMaterial_m3w18")
 
-[sub_resource type="Environment" id="Environment_yfktj"]
-background_mode = 2
-sky = SubResource("Sky_kjhen")
-sdfgi_use_occlusion = true
-glow_intensity = 4.1
-glow_strength = 1.33
+[sub_resource type="Environment" id="Environment_slsi8"]
+background_mode = 1
+background_color = Color(0, 0, 0, 0)
+sky = SubResource("Sky_s8cw8")
+ambient_light_source = 3
 
 [node name="Player" type="XROrigin3D" unique_id=1492187489]
 script = ExtResource("1_smehm")
 metadata/_edit_group_ = true
 
-[node name="MovementClimb" parent="." unique_id=1489789315 instance=ExtResource("5_1jxqw")]
-
 [node name="PlayerBody" parent="." unique_id=810966615 instance=ExtResource("4_2hs0m")]
-player_radius = 0.15
 player_height_max = 1.8
 eye_forward_offset = 0.219
 max_head_distance = 0.0
@@ -708,7 +702,7 @@ settings/0/additive = false
 
 [node name="XRCamera3D" type="XRCamera3D" parent="." unique_id=409588794]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6935427, 0)
-environment = SubResource("Environment_yfktj")
+environment = SubResource("Environment_slsi8")
 
 [node name="Marker3D" type="Marker3D" parent="XRCamera3D" unique_id=451027464]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, -0.033602238, 0.104557514)
@@ -722,30 +716,24 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.042896867, 0, 0)
 visible = false
 
 [node name="Marker3D" type="Marker3D" parent="LeftHand/LeftHand" unique_id=312555529]
-transform = Transform3D(1.9106855e-15, 4.371139e-08, -1, 1, -4.371139e-08, 0, -4.371139e-08, -1, -4.371139e-08, 0, 0, 0.128)
+transform = Transform3D(1.9106855e-15, 4.371139e-08, -1, 1, -4.371139e-08, 0, -4.371139e-08, -1, -4.371139e-08, 0, 0, 0)
 
 [node name="Marker3D" type="Marker3D" parent="LeftHand" unique_id=1580424371]
-transform = Transform3D(1.0000001, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 0, 1)
-
-[node name="MovementDirect" parent="LeftHand" unique_id=1869952915 instance=ExtResource("2_hqtel")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.178023, 0)
-strafe = true
+transform = Transform3D(1.0000001, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 0, 1)
 
 [node name="FunctionPickup" parent="LeftHand" unique_id=348108778 instance=ExtResource("4_1jxqw")]
+pickup_axis_action = "trigger_click"
 grab_distance = 1.0
 ranged_enable = false
 
 [node name="RightHand" type="XRController3D" parent="." unique_id=242489170]
 tracker = &"right_hand"
 
-[node name="MovementTurn" parent="RightHand" unique_id=1427877236 instance=ExtResource("5_sweqy")]
-turn_mode = 1
-
 [node name="RightHand" parent="RightHand" unique_id=816310675 instance=ExtResource("2_i3pqv")]
 visible = false
 
 [node name="Marker3D" type="Marker3D" parent="RightHand/RightHand" unique_id=1975760481]
-transform = Transform3D(-4.4703484e-08, 0, 1, -1, 1.1924881e-08, -4.4703484e-08, -1.1924881e-08, -1, -5.2125306e-16, 0, 0, 0.12840652)
+transform = Transform3D(1.9106855e-15, 4.371139e-08, -1, 1, -4.371139e-08, 0, -4.371139e-08, -1, -4.371139e-08, 0, 0, 0)
 rotation_order = 0
 
 [node name="FunctionPickup" parent="RightHand" unique_id=2048063526 instance=ExtResource("4_1jxqw")]
@@ -753,4 +741,11 @@ grab_distance = 1.0
 ranged_enable = false
 
 [node name="Marker3D" type="Marker3D" parent="RightHand" unique_id=100328254]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 0, 1)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 0, 1)
+
+[node name="OpenXRFbSpatialAnchorManager" type="OpenXRFbSpatialAnchorManager" parent="." unique_id=630561748]
+scene = ExtResource("9_ur7pv")
+
+[node name="Label3D" type="Label3D" parent="." unique_id=735887250]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0494852, -1.254045)
+text = "HI"

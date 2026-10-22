@@ -1,9 +1,9 @@
 extends StaticBody3D
 
-const PORT: int = 8000
+const PORT: int = 8080
 const MAX_PLAYERS: int = 32
 
-var ip_addr: String = "192.168.0.101"
+var ip_addr: String = "192.168.0.215"
 var nickname: String = ""
 
 var S302_SCENE: PackedScene = preload("res://scenes/salac.tscn")

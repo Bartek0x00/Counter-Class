@@ -13,6 +13,7 @@ var left_hand: XRController3D
 var right_hand: XRController3D
 
 var MOCK_PLAYER: PackedScene = preload("res://scenes/player_mock.tscn")
+const ANCHORS_FILE = "user://openxr_fb_anchor.json"
 
 func _ready() -> void:
 	left_hand = get_node("LeftHand")
@@ -20,11 +21,32 @@ func _ready() -> void:
 	
 	#global_position = get_tree().get_first_node_in_group("spawn_point").global_position
 
+	XRServer.find_interface("OpenXR").session_begun.connect(_on_openxr_session_begun)
+	
 	if not is_local:
 		for c in get_children():
 			c.queue_free()
 		var mock_player = MOCK_PLAYER.instantiate()
 		add_child(mock_player)
+	elif has_session_begun:
+		var file = FileAccess.open(ANCHORS_FILE, FileAccess.WRITE)
+		if not file:
+			return
+		
+		var json = JSON.new()
+		if json.parse(file.get_as_text()) != OK:
+			return
+		if not json.data() is Dictionary:
+			return
+		
+		print(json.data)
+		#get_node("OpenXRFbSpatialAnchorManager").load_anchor(json.data.keys()[0], json.data, OpenXRFbSpatialEntity.STORAGE_LOCAL, true)
+		
+
+var has_session_begun = false
+
+func _on_openxr_session_begun():
+	has_session_begun = true
 
 func _process(delta: float) -> void:
 	if not is_local:
@@ -34,6 +56,24 @@ func _process(delta: float) -> void:
 		_spawn_timer = 0.0
 		if left_hand.is_button_pressed("ax_button"):
 			get_node("/root/Main").rpc_id(1, "server_spawn_obj", Main.ObjType.BALL)
+		if left_hand.is_button_pressed("by_button"):
+			if has_session_begun:
+				get_node("OpenXRFbSpatialAnchorManager").create_anchor(Transform3D.IDENTITY, Dictionary())
+				
+
+func _on_openxr_fb_spatial_anchor_tracked():
+		var file = FileAccess.open(ANCHORS_FILE, FileAccess.WRITE)
+		if not file:
+			return
+		var uuids = get_node("OpenXRFbSpatialAnchorManager").get_anchor_uuids()
+		if len(uuids) < 1:
+			return
+		var uuid = uuids[0]
+		var anchor_data: Dictionary
+		anchor_data[uuid] = {}
+		file.store_string(JSON.stringify(anchor_data))
+		file.close()
+		get_node("Label3D").text = str(anchor_data)
 
 func _physics_process(delta: float) -> void:
 	if not is_local:
