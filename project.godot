@@ -31,12 +31,18 @@ project/assembly_name="vrTest"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/godot-xr-tools/plugin.cfg")
+enabled=PackedStringArray("res://addons/NativeCameraPlugin/plugin.cfg", "res://addons/godot-xr-tools/plugin.cfg")
 
 [global_group]
 
 spawn_point=""
 Ball=""
+
+[input_devices]
+
+sensors/enable_accelerometer=true
+sensors/enable_gyroscope=true
+sensors/enable_magnetometer=true
 
 [layer_names]
 
@@ -74,6 +80,7 @@ openxr/extensions/hand_tracking_controller_data_source=true
 openxr/extensions/spatial_entity/enabled=true
 openxr/extensions/spatial_entity/enable_spatial_anchors=true
 openxr/extensions/spatial_entity/enable_persistent_anchors=true
+openxr/extensions/spatial_entity/enable_builtin_anchor_detection=true
 shaders/enabled=true
 openxr/extensions/meta/passthrough=true
 openxr/extensions/meta/composition_layer_settings/main_projection_layer/alpha_blend/enable=true

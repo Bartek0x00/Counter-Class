@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://bl2nuu3qhlb5k" path="res://addons/godot-xr-tools/functions/movement_direct.tscn" id="5_fjrip"]
 [ext_resource type="PackedScene" uid="uid://b6bk2pj8vbj28" path="res://addons/godot-xr-tools/functions/movement_turn.tscn" id="7_smehm"]
 [ext_resource type="PackedScene" uid="uid://bch5lk11tt1j6" path="res://scenes/anchor.tscn" id="9_ur7pv"]
+[ext_resource type="Script" uid="uid://sht8xao2v5e6" path="res://addons/NativeCameraPlugin/NativeCamera.gd" id="9_y4r1p"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_t22rd"]
 resource_name = "shirt"
@@ -275,6 +276,9 @@ background_mode = 1
 background_color = Color(0, 0, 0, 0)
 sky = SubResource("Sky_s8cw8")
 ambient_light_source = 3
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_bsk1r"]
+size = Vector2(5.12, 4.32)
 
 [node name="Player" type="XROrigin3D" unique_id=1492187489]
 script = ExtResource("1_smehm")
@@ -756,3 +760,12 @@ scene = ExtResource("9_ur7pv")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.660994, -1.1377867)
 text = "HI"
 autowrap_mode = 2
+
+[node name="CameraPlane" type="MeshInstance3D" parent="." unique_id=2087273427]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 1.3487809, -2.3314488)
+visible = false
+mesh = SubResource("PlaneMesh_bsk1r")
+
+[node name="NativeCamera" type="Node" parent="." unique_id=1265526237]
+script = ExtResource("9_y4r1p")
+metadata/_custom_type_script = "uid://sht8xao2v5e6"
