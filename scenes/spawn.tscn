@@ -10,7 +10,7 @@ albedo_color = Color(1, 0.7988334, 0.29000002, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_bsk1r"]
 material = SubResource("StandardMaterial3D_slsi8")
-size = Vector3(5, 0.1, 8)
+size = Vector3(30, 0.1, 30)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_slsi8"]
 size = Vector3(2, 2, 2)
@@ -34,6 +34,14 @@ albedo_color = Color(0, 1.2237577, 0.2944867, 0.75686276)
 [sub_resource type="BoxMesh" id="BoxMesh_yubdn"]
 material = SubResource("StandardMaterial3D_q0eb6")
 size = Vector3(2, 2, 2)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_55tdy"]
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_2hrrx"]
+material = SubResource("StandardMaterial3D_55tdy")
+radius = 0.1
+height = 0.2
 
 [node name="Spawn" type="StaticBody3D" unique_id=1556354741]
 script = ExtResource("1_48w1d")
@@ -79,6 +87,9 @@ font_size = 64
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1543656505]
 transform = Transform3D(1, 0, 0, 0, 0.7330133, 0.68021435, 0, -0.68021435, 0.7330133, 0, 6.4170246, 0)
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="." unique_id=361587146]
+mesh = SubResource("SphereMesh_2hrrx")
 
 [connection signal="body_entered" from="Area_Host" to="." method="_on_area_host_body_entered"]
 [connection signal="body_entered" from="Area_Join" to="." method="_on_area_join_body_entered"]

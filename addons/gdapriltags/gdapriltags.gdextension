@@ -1,0 +1,14 @@
+[configuration]
+entry_symbol = "gdapriltags_init"
+compatibility_minimum = "4.3"
+reloadable = true
+
+[libraries]
+android.release.arm64 = "res://addons/gdapriltags/androidarm64/libgdapriltags.android.template_release.arm64.so"
+android.debug.arm64 =   "res://addons/gdapriltags/androidarm64/libgdapriltags.android.template_debug.arm64.so"
+linux.release.x86_64 =  "res://addons/gdapriltags/linux64/libgdapriltags.linux.template_release.x86_64.so"
+linux.debug.x86_64 =    "res://addons/gdapriltags/linux64/libgdapriltags.linux.template_debug.x86_64.so"
+
+[dependencies]
+android.arm64 = { "res://addons/gdapriltags/androidarm64/libapriltag.3.4.5.android.arm64.so": "" }
+linux.x86_64 =  { "res://addons/gdapriltags/linux64/libapriltag.3.4.5.linux.x86_64.so": "" }

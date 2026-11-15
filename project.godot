@@ -10,7 +10,7 @@ config_version=5
 
 [application]
 
-config/name="vrTest"
+config/name="Counter-Class"
 run/main_scene="uid://c2gi7ufc8n5f7"
 config/features=PackedStringArray("4.7", "Mobile")
 config/icon="res://icon.svg"

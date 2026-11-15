@@ -17,21 +17,30 @@ var left_hand: XRController3D
 var right_hand: XRController3D
 
 var MOCK_PLAYER: PackedScene = preload("res://scenes/player_mock.tscn")
-const ANCHORS_FILE = "user://openxr_fb_anchor.json"
-const APPLICATION_ID = "1391862670680685"
 
 var udp: PacketPeerUDP = PacketPeerUDP.new()
+var request: FeedRequest
 var camera: NativeCamera
 var april_img: Image
+
+const TAG_SIZE: float = 0.1
+const FX: float = 600
+const FY: float = 600
+const CX: float = 400
+const CY: float = 300
 
 func _on_frame_available(frame: FrameInfo) -> void:
 	april_img = frame.get_image()
 	
-	var material = StandardMaterial3D.new()
-	material.albedo_texture = ImageTexture.create_from_image(april_img)
-	material.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+	var detector := AprilTagDetector.new()
+	var family := AprilTagFamily.new()
+	family.set_type(AprilTagFamily.TAG_STANDARD_41H12)
+	detector.add_family(family)
 	
-	$CameraPlane.material_override = material
+	var detections := detector.detect(april_img)
+	if len(detections) > 0:
+		var t := detections[0].get_pose_transform(TAG_SIZE, FX, FY, CX, CY)
+		transform = t
 	camera.stop()
 
 func _ready() -> void:
@@ -42,54 +51,20 @@ func _ready() -> void:
 	var cameras := camera.get_all_cameras()
 	
 	var cam = cameras[1]
-	var request := FeedRequest.new().set_camera_id(cam.get_camera_id()).set_grayscale(true).set_rotation(0).set_frames_to_skip(5)
-	
-	camera.start(request)
-	
-	return
-	#var android = Engine.get_singleton("GodotAndroidRuntime")
-	#var context = android.getApplicationContext()
-	#SensorClass = JavaClassWrapper.wrap("android.hardware.Sensor")
-	#sensor_manager = context.getSystemService("sensor")
-	
-	#print_sensor(1, "A")
-	#print_sensor(4, "G")
-	#print_sensor(2, "M")
+	request = FeedRequest.new().set_camera_id(cam.get_camera_id()).set_grayscale(true).set_rotation(0).set_frames_to_skip(5)
 	
 	udp.set_dest_address("192.168.0.249", 9000)
 	_geo_id = randi_range(0, UINT16_MAX)
 	
-	#init_meta_sdk()
-	
 	left_hand = get_node("LeftHand")
 	right_hand = get_node("RightHand")
 	
-	#get_node("OpenXRFbSpatialAnchorManager").openxr_fb_spatial_anchor_tracked.connect(_on_openxr_fb_spatial_anchor_tracked)
-	#get_node("OpenXRFbSpatialAnchorManager").openxr_fb_spatial_anchor_load_failed.connect(_on_load_failed)
 	if not is_local:
 		for c in get_children():
 			c.queue_free()
 		var mock_player = MOCK_PLAYER.instantiate()
 		add_child(mock_player)
 		
-	#get_node("OpenXRFbSpatialAnchorManager").load_anchor("2fc3d173-5f7c-d01c-e4b4-2a2c0611ebc6", {}, OpenXRFbSpatialEntity.STORAGE_CLOUD)
-
-#func init_meta_sdk():
-	#var request = MetaPlatformSDK.initialize_platform_async(APPLICATION_ID)
-	#if request == null:
-		#get_node("Label3D").text = "Request NULL"
-		#return
-	#var message: MetaPlatformSDK_Message = await request.completed
-	#if message.is_error():
-		#get_node("Label3D").text = "Initialization request failed: " + str(message.error)
-		#return
-		#
-	#var user = await MetaPlatformSDK.user_get_logged_in_user_async().completed
-	#if user.is_error():
-		#get_node("Label3D").text = "User request failed: " + str(user.error)
-		#return
-	#get_node("Label3D").text = str(user.get_string())
-
 
 func _on_load_failed(uuid: String, custom_data: Dictionary, location: int):
 	print(uuid, custom_data, location)
@@ -99,97 +74,15 @@ func _process(delta: float) -> void:
 		return
 
 	_spawn_timer += delta
-	return
-	if _spawn_timer > 3.0:
-		pass
-		#print(texture.get_image().data)
-	return
 	if _spawn_timer >= _spawn_interval:
 		_spawn_timer = 0.0
 		if left_hand.is_button_pressed("ax_button"):
 			get_node("/root/Main").rpc_id(1, "server_spawn_obj", Main.ObjType.BALL)
 		if left_hand.is_button_pressed("by_button"):
-			get_node("OpenXRFbSpatialAnchorManager").create_anchor(Transform3D.IDENTITY, Dictionary())
+			camera.start(request)
 
-
-func init_meta_sdk() -> void:
-	var label: Label3D = get_node("Label3D")
-
-	# 1. Initialize the platform SDK.
-	var request = MetaPlatformSDK.initialize_platform_async(APPLICATION_ID)
-	if request == null:
-		label.text = "Initialization request is NULL"
-		return
-
-	var init_message: MetaPlatformSDK_Message = await request.completed
-
-	print("Init message: ", init_message)
-	print("Init message is_error: ", init_message.is_error())
-
-	if init_message.is_error():
-		label.text = "Init error: " + str(init_message.error)
-		return
-
-	# 2. Check the platform initialization result.
-	var init_info = init_message.get_platform_initialize()
-	print("Platform init result: ", init_info.result)
-
-	if init_info.result != MetaPlatformSDK.PLATFORM_INITIALIZE_SUCCESS:
-		label.text = "Platform init result: " + str(init_info.result)
-		return
-
-	# 3. Check entitlement.
-	var entitlement_request = MetaPlatformSDK.entitlement_get_is_viewer_entitled_async()
-	if entitlement_request == null:
-		label.text = "Entitlement request is NULL"
-		return
-
-	var entitlement_message: MetaPlatformSDK_Message = await entitlement_request.completed
-	print("Entitlement response: ", entitlement_message)
-
-	if entitlement_message.is_error():
-		label.text = "Entitlement error: " + str(entitlement_message.error)
-		return
-
-	# 4. Request the logged-in user.
-	var user_request = MetaPlatformSDK.user_get_logged_in_user_async()
-	if user_request == null:
-		label.text = "User request is NULL"
-		return
-
-	var user_message: MetaPlatformSDK_Message = await user_request.completed
-
-	print("User message: ", user_message)
-	print("User message type: ", user_message.type)
-	print("User message is_error: ", user_message.is_error())
-
-	if user_message.is_error():
-		label.text = "User error: " + str(user_message.error)
-		return
-
-	var user: MetaPlatformSDK_User = user_message.get_user()
-
-	print("User object: ", user)
-	print("User Oculus ID: ", user.oculus_id)
-
-	label.text = "Oculus ID: " + str(user.oculus_id)
-
-
-func _on_openxr_fb_spatial_anchor_tracked(anchor_node: Object, spatial_entity: Object, is_new: bool):
-	if not is_new:
-		print("SUCCESS!!!")
-		return
-	print(spatial_entity.get_uuid())
-	spatial_entity.openxr_fb_spatial_entity_saved.connect(_on_saved)
-	spatial_entity.set_component_enabled(OpenXRFbSpatialEntity.COMPONENT_TYPE_STORABLE, true)
-	spatial_entity.set_component_enabled(OpenXRFbSpatialEntity.COMPONENT_TYPE_SHARABLE, true)
-	spatial_entity.save_to_storage(OpenXRFbSpatialEntity.StorageLocation.STORAGE_CLOUD)
-
-func _on_saved(succeeded: bool, location: int):
-	print(succeeded, location)
 
 func _physics_process(delta: float) -> void:
-	return
 	if not is_local:
 		return
 	
