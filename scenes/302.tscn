@@ -7,9 +7,9 @@
 [node name="302_finished" unique_id=1177354666 instance=ExtResource("1_g1p41")]
 transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
 
-[node name="StaticBody3D" parent="302" parent_id_path=PackedInt32Array(1866535965) index="0" unique_id=1815112649]
+[node name="StaticBody3D" parent="302" parent_id_path=PackedInt32Array(425488620) index="0" unique_id=942675907]
 collision_layer = 13
 script = ExtResource("2_b5i6q")
 
-[node name="keyboard" parent="." index="2" unique_id=1055763094]
+[node name="keyboard" parent="." index="2" unique_id=2083604617]
 script = ExtResource("2_xl45c")

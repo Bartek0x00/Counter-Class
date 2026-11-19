@@ -23,14 +23,20 @@ var request: FeedRequest
 var camera: NativeCamera
 var april_img: Image
 
+# 1280 x 720
 const TAG_SIZE: float = 0.1
 const FX: float = 600
 const FY: float = 600
-const CX: float = 400
-const CY: float = 300
+const CX: float = 640
+const CY: float = 360
 
 func _on_frame_available(frame: FrameInfo) -> void:
 	april_img = frame.get_image()
+	
+	get_node("Label3D").text += "image_size(" + str(april_img.get_width()) + ", " + str(april_img.get_height()) + "). "
+	var material = StandardMaterial3D.new()
+	material.albedo_texture = ImageTexture.create_from_image(april_img)
+	get_node("CameraPlane").material_override = material
 	
 	var detector := AprilTagDetector.new()
 	var family := AprilTagFamily.new()
@@ -38,9 +44,18 @@ func _on_frame_available(frame: FrameInfo) -> void:
 	detector.add_family(family)
 	
 	var detections := detector.detect(april_img)
+	get_node("Label3D").text += "detected " + str(len(detections)) + " tags. "
 	if len(detections) > 0:
-		var t := detections[0].get_pose_transform(TAG_SIZE, FX, FY, CX, CY)
-		transform = t
+		#var t := detections[0].get_pose_transform(TAG_SIZE, FX, FY, CX, CY)
+		var distance := AprilTagUtils.estimate_distance(detections[0].pixel_corners)
+		print(detections[0].id)
+		var node = get_node("/root/Main/School302/Tag0")
+		if node != null:
+			global_position = node.global_position + (Vector3.LEFT * (distance / 100))
+			get_node("XRCamera3D").rotation.y = 0.0
+			#var anchor := preload("res://scenes/anchor.tscn").instantiate()
+			#anchor.global_position = node.global_position + (Vector3.LEFT * (distance  / 100))
+			#get_node("/root/Main").add_child(anchor)
 	camera.stop()
 
 func _ready() -> void:
@@ -79,6 +94,7 @@ func _process(delta: float) -> void:
 		if left_hand.is_button_pressed("ax_button"):
 			get_node("/root/Main").rpc_id(1, "server_spawn_obj", Main.ObjType.BALL)
 		if left_hand.is_button_pressed("by_button"):
+			get_node("Label3D").text += "B/Y clicked. "
 			camera.start(request)
 
 

@@ -94,7 +94,7 @@ func spawn_player(peer_id: int, is_local: bool, is_also_client: bool = true) -> 
 	player.is_local = is_local
 	player.is_also_client = is_also_client
 	add_child(player)
-	player.global_position = Vector3(-5, 0, 0)
+	player.global_position = Vector3(-5, 0, -5)
 	players[peer_id] = player
 	
 	for id in objects.keys():
