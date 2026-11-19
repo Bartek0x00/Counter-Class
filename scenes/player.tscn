@@ -7,7 +7,6 @@
 [ext_resource type="PackedScene" uid="uid://diyu06cw06syv" path="res://addons/godot-xr-tools/player/player_body.tscn" id="4_2hs0m"]
 [ext_resource type="PackedScene" uid="uid://bl2nuu3qhlb5k" path="res://addons/godot-xr-tools/functions/movement_direct.tscn" id="5_fjrip"]
 [ext_resource type="PackedScene" uid="uid://b6bk2pj8vbj28" path="res://addons/godot-xr-tools/functions/movement_turn.tscn" id="7_smehm"]
-[ext_resource type="Script" uid="uid://sht8xao2v5e6" path="res://addons/NativeCameraPlugin/NativeCamera.gd" id="9_y4r1p"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_t22rd"]
 resource_name = "shirt"
@@ -763,7 +762,3 @@ width = 800.0
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 1.3487809, -6.0026436)
 visible = false
 mesh = SubResource("PlaneMesh_bsk1r")
-
-[node name="NativeCamera" type="Node" parent="." unique_id=1265526237]
-script = ExtResource("9_y4r1p")
-metadata/_custom_type_script = "uid://sht8xao2v5e6"

@@ -1,8 +1,8 @@
 extends RefCounted
 class_name AprilTagUtils
 
-const CALIB_DISTANCE: float = 200.0
-const CALIB_SIZE: float = 23.0
+const CALIB_DISTANCE: float = 150.0
+const CALIB_SIZE: float = 31.58
 
 const MAX_EDGE_RATIO: float = 1.2
 const MAX_EDGE_DIFF: float = 2.0

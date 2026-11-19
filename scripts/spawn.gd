@@ -3,7 +3,7 @@ extends StaticBody3D
 const PORT: int = 8080
 const MAX_PLAYERS: int = 32
 
-var ip_addr: String = "192.168.0.215"
+var ip_addr: String = "192.168.0.242"
 var nickname: String = ""
 
 var S302_SCENE: PackedScene = preload("res://scenes/classroom_302.tscn")

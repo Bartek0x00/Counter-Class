@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://cohojhq2lguut"]
+
+[ext_resource type="PackedScene" uid="uid://bl44uuiaaklab" path="res://scenes/trigger.tscn" id="1_e8cgx"]
+
+[node name="Trigger2" type="Node3D" unique_id=967045776]
+
+[node name="Trigger" parent="." unique_id=524511734 instance=ExtResource("1_e8cgx")]

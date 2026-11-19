@@ -1,5 +1,7 @@
 extends Node3D
 
+signal capture_tag
+
 var is_local: bool = false
 var is_also_client: bool = true
 
@@ -19,54 +21,96 @@ var right_hand: XRController3D
 var MOCK_PLAYER: PackedScene = preload("res://scenes/player_mock.tscn")
 
 var udp: PacketPeerUDP = PacketPeerUDP.new()
-var request: FeedRequest
-var camera: NativeCamera
-var april_img: Image
 
-# 1280 x 720
-const TAG_SIZE: float = 0.1
-const FX: float = 600
-const FY: float = 600
-const CX: float = 640
-const CY: float = 360
+var _cam_feeds: Array[CameraFeed] = []
 
-func _on_frame_available(frame: FrameInfo) -> void:
-	april_img = frame.get_image()
+var cam_texs: Array[CameraTexture] = []
+
+func _on_capture_tag() -> void:
+	_cam_feeds[0].feed_is_active = true
+	_cam_feeds[1].feed_is_active = true
 	
-	get_node("Label3D").text += "image_size(" + str(april_img.get_width()) + ", " + str(april_img.get_height()) + "). "
-	var material = StandardMaterial3D.new()
-	material.albedo_texture = ImageTexture.create_from_image(april_img)
-	get_node("CameraPlane").material_override = material
+	await _cam_feeds[1].frame_changed
 	
 	var detector := AprilTagDetector.new()
 	var family := AprilTagFamily.new()
 	family.set_type(AprilTagFamily.TAG_STANDARD_41H12)
 	detector.add_family(family)
 	
-	var detections := detector.detect(april_img)
-	get_node("Label3D").text += "detected " + str(len(detections)) + " tags. "
-	if len(detections) > 0:
+	var detections := [
+		detector.detect(cam_texs[0].get_image()),
+		detector.detect(cam_texs[1].get_image())
+	]
+	
+	if (len(detections[0]) > 0) and (len(detections[1]) > 0):
+		#var avg_left := AprilTagUtils.get_avg_edge_len(detections[0][0].pixel_corners)
+		#var avg_right := AprilTagUtils.get_avg_edge_len(detections[1][0].pixel_corners)
+		
+		#print(str(avg_left) + " " + str(avg_right))
 		#var t := detections[0].get_pose_transform(TAG_SIZE, FX, FY, CX, CY)
-		var distance := AprilTagUtils.estimate_distance(detections[0].pixel_corners)
-		print(detections[0].id)
-		var node = get_node("/root/Main/School302/Tag0")
+		var distance_left := AprilTagUtils.estimate_distance(detections[0][0].pixel_corners)
+		var distance_right := AprilTagUtils.estimate_distance(detections[1][0].pixel_corners)
+		
+		print(str(distance_left) + " " + str(distance_right))
+		var distance := (distance_left + distance_right) / 2.0
+		var node = get_node("/root/Main/School302/Tag" + str(detections[0][0].id))
 		if node != null:
-			global_position = node.global_position + (Vector3.LEFT * (distance / 100))
-			get_node("XRCamera3D").rotation.y = 0.0
+			var body = get_node("PlayerBody")
+			var new_pos: Vector3 = node.global_position + (node.global_transform.basis.z.normalized() * (distance / 100))
+			#global_position.x = new_pos.x
+			#global_position.z = new_pos.z
+			new_pos.y = body.global_position.y
+			body.teleport(Transform3D(body.basis, new_pos))
+			#var trigger = preload("res://scenes/trigger_2.tscn").instantiate()
+			#trigger.global_position = node.global_position + (node.global_transform.basis.z.normalized() * (distance / 100))
+			var target_direction = -node.global_transform.basis.z
+			var target_angle = atan2(-target_direction.x, -target_direction.z)
+			#trigger.rotation.y = -target_angle
+			#get_node("/root/Main").add_child(trigger)
+			var body_direction = -body.global_transform.basis.z
+			var body_angle = atan2(-body_direction.x, -body_direction.z)
+			body.rotate_player(-wrapf(target_angle - body_angle, -PI, PI))
+			
 			#var anchor := preload("res://scenes/anchor.tscn").instantiate()
 			#anchor.global_position = node.global_position + (Vector3.LEFT * (distance  / 100))
 			#get_node("/root/Main").add_child(anchor)
-	camera.stop()
+	_cam_feeds[0].feed_is_active = false
+	_cam_feeds[1].feed_is_active = false
 
+func _on_camera_feeds_updated() -> void:
+	if len(_cam_feeds) != 0:
+		return
+	
+	if CameraServer.get_feed_count() < 3:
+		return
+	
+	for i in range(2):
+		_cam_feeds.append(CameraServer.get_feed(i + 1))
+		_cam_feeds[i].feed_is_active = false
+		_cam_feeds[i].set_format(len(_cam_feeds[i].formats) - 1, {})
+		_cam_feeds[i].feed_is_active = true
+	
+		cam_texs.append(CameraTexture.new())
+		cam_texs[i].camera_feed_id = _cam_feeds[i].get_id()
+		cam_texs[i].camera_is_active = true
+		cam_texs[i].which_feed = CameraServer.FEED_RGBA_IMAGE
+	
+	capture_tag.connect(_on_capture_tag)
+	
 func _ready() -> void:
-	camera = get_node("NativeCamera")
-	camera.frame_available.connect(_on_frame_available)
-	camera.request_camera_permission()
+	#camera = get_node("NativeCamera")
+	#camera.frame_available.connect(_on_frame_available)
+	#camera.request_camera_permission()
 	
-	var cameras := camera.get_all_cameras()
+	# cameras := camera.get_all_cameras()
 	
-	var cam = cameras[1]
-	request = FeedRequest.new().set_camera_id(cam.get_camera_id()).set_grayscale(true).set_rotation(0).set_frames_to_skip(5)
+	#var cam = cameras[1]
+	#request = FeedRequest.new().set_camera_id(cam.get_camera_id()).set_grayscale(true).set_rotation(0).set_frames_to_skip(5)
+	
+	CameraServer.camera_feeds_updated.connect(_on_camera_feeds_updated)
+	CameraServer.monitoring_feeds = true
+	
+	_on_camera_feeds_updated()
 	
 	udp.set_dest_address("192.168.0.249", 9000)
 	_geo_id = randi_range(0, UINT16_MAX)
@@ -95,7 +139,7 @@ func _process(delta: float) -> void:
 			get_node("/root/Main").rpc_id(1, "server_spawn_obj", Main.ObjType.BALL)
 		if left_hand.is_button_pressed("by_button"):
 			get_node("Label3D").text += "B/Y clicked. "
-			camera.start(request)
+			capture_tag.emit()
 
 
 func _physics_process(delta: float) -> void:
